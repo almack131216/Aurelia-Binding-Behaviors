@@ -23,9 +23,3 @@ export function configure(aurelia) {
 
   aurelia.start().then(() => aurelia.setRoot());
 }
-
-export class Configuration {  
-  constructor(){
-      this.gCurrency = '£';
-  }
-}

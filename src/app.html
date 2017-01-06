@@ -1,17 +1,31 @@
 <template>
-  <require from="./converters"></require>
+  <require from="format/format-cust"></require>
+  <require from="format/format-date"></require>
+  <require from="format/format-currency"></require>
+  <require from="format/format-number"></require>  
 
   <h1>${title}</h1>
 
-  <h2>${throttle_title}</h2>
-  <input id="name" type="text" value.bind="myData & throttle:myDataDelay" />
+  <hr>
+  <h2>${throttle_title}:${myDataDelay}</h2>
+  <input id="throttleInp" type="text" value.bind="throttle_inp & throttle:myDataDelay" />
   <br>
-  <span>update after ${myDataDelay | numberFormat} seconds: ${myData}</span>
+  <span>update after ${myDataDelay | convertTicks} seconds: ${throttle_inp}</span>
+
+  <hr>
+  <h2>${debounce_title}:${myDataDelay2}</h2>
+  <input id="debounceInp" type="text" value.bind="debounce_inp & debounce:myDataDelay2" />
+  , oneTime: <input id="debounceInpOneTime" type="text" value.bind="debounce_inp & oneTime" />
+  <br>
+  <span>update after ${myDataDelay2 | convertTicks} seconds: ${debounce_inp}</span>
 
   <hr>
   <h3>currencyFormat</h3>
   <span>${myCurrencyValue | currencyFormat:'(0,0.00)'}</span>
+  
   <hr>
   <h3>dateFormat</h3>
-  <span>${currentDate | dateFormat}</span>
+  <span>default = ${currentDate | dateFormat}</span>
+  <br><span>'MMMM' = ${currentDate | dateFormat:'MMMM'}</span>
+  <br><span innerhtml.bind="('default') + currentDate | dateFormat">?</span>
 </template>
