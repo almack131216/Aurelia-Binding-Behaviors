@@ -1,0 +1,17 @@
+<template>
+  <require from="./converters"></require>
+
+  <h1>${title}</h1>
+
+  <h2>${throttle_title}</h2>
+  <input id="name" type="text" value.bind="myData & throttle:myDataDelay" />
+  <br>
+  <span>update after ${myDataDelay | numberFormat} seconds: ${myData}</span>
+
+  <hr>
+  <h3>currencyFormat</h3>
+  <span>${myCurrencyValue | currencyFormat:'(0,0.00)'}</span>
+  <hr>
+  <h3>dateFormat</h3>
+  <span>${currentDate | dateFormat}</span>
+</template>
