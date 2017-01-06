@@ -31,6 +31,8 @@ define('app',['exports', 'aurelia-framework', './globals'], function (exports, _
 
     this.myDataDelay = config.gDelay;
     this.myDataDelay2 = config.gDelay2;
+
+    this.message = 'this is my text\nit has some line breaks\nand some <script>evil javascript</script>\nthe line breaks were replaced with <br/> tags';
   }) || _class);
 });
 define('environment',["exports"], function (exports) {
@@ -226,13 +228,13 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
-define('format/format-cust',['exports', 'numeral'], function (exports, _numeral) {
+define('format/format-cust',['exports', 'numeral', 'aurelia-framework'], function (exports, _numeral, _aureliaFramework) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.ConvertTicksValueConverter = undefined;
+  exports.PreserveBreaksCustomAttribute = exports.ConvertTicksValueConverter = undefined;
 
   var _numeral2 = _interopRequireDefault(_numeral);
 
@@ -241,6 +243,8 @@ define('format/format-cust',['exports', 'numeral'], function (exports, _numeral)
       default: obj
     };
   }
+
+  var _dec, _class;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -259,6 +263,26 @@ define('format/format-cust',['exports', 'numeral'], function (exports, _numeral)
 
     return ConvertTicksValueConverter;
   }();
+
+  function htmlEncode(html) {
+    return document.createElement('a').appendChild(document.createTextNode(html)).parentNode.innerHTML;
+  }
+
+  var PreserveBreaksCustomAttribute = exports.PreserveBreaksCustomAttribute = (_dec = (0, _aureliaFramework.inject)(Element), _dec(_class = function () {
+    function PreserveBreaksCustomAttribute(element) {
+      _classCallCheck(this, PreserveBreaksCustomAttribute);
+
+      this.element = element;
+    }
+
+    PreserveBreaksCustomAttribute.prototype.valueChanged = function valueChanged() {
+      var html = htmlEncode(this.value);
+      html = html.replace(/\r/g, '').replace(/\n/g, '<br/>');
+      this.element.innerHTML = html;
+    };
+
+    return PreserveBreaksCustomAttribute;
+  }()) || _class);
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"format/format-cust\"></require>\n  <require from=\"format/format-date\"></require>\n  <require from=\"format/format-currency\"></require>\n  <require from=\"format/format-number\"></require>  \n\n  <h1>${title}</h1>\n\n  <hr>\n  <h2>${throttle_title}:${myDataDelay}</h2>\n  <input id=\"throttleInp\" type=\"text\" value.bind=\"throttle_inp & throttle:myDataDelay\" />\n  <br>\n  <span>update after ${myDataDelay | convertTicks} seconds: ${throttle_inp}</span>\n\n  <hr>\n  <h2>${debounce_title}:${myDataDelay2}</h2>\n  <input id=\"debounceInp\" type=\"text\" value.bind=\"debounce_inp & debounce:myDataDelay2\" />\n  , oneTime: <input id=\"debounceInpOneTime\" type=\"text\" value.bind=\"debounce_inp & oneTime\" />\n  <br>\n  <span>update after ${myDataDelay2 | convertTicks} seconds: ${debounce_inp}</span>\n\n  <hr>\n  <h3>currencyFormat</h3>\n  <span>${myCurrencyValue | currencyFormat:'(0,0.00)'}</span>\n  \n  <hr>\n  <h3>dateFormat</h3>\n  <span>default = ${currentDate | dateFormat}</span>\n  <br><span>'MMMM' = ${currentDate | dateFormat:'MMMM'}</span>\n  <br><span innerhtml.bind=\"('default') + currentDate | dateFormat\">?</span>\n</template>"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"format/format-cust\"></require>\n  <require from=\"format/format-date\"></require>\n  <require from=\"format/format-currency\"></require>\n  <require from=\"format/format-number\"></require>  \n\n  <h1>${title}</h1>\n\n  <hr>\n  <h2>${throttle_title}:${myDataDelay}</h2>\n  <input id=\"throttleInp\" type=\"text\" value.bind=\"throttle_inp & throttle:myDataDelay\" />\n  <br>\n  <span>update after ${myDataDelay | convertTicks} seconds: ${throttle_inp}</span>\n\n  <hr>\n  <h2>${debounce_title}:${myDataDelay2}</h2>\n  <input id=\"debounceInp\" type=\"text\" value.bind=\"debounce_inp & debounce:myDataDelay2\" />\n  , oneTime: <input id=\"debounceInpOneTime\" type=\"text\" value.bind=\"debounce_inp & oneTime\" />\n  <br>\n  <span>update after ${myDataDelay2 | convertTicks} seconds: ${debounce_inp}</span>\n\n  <hr>\n  <h3>currencyFormat</h3>\n  <span>${myCurrencyValue | currencyFormat:'(0,0.00)'}</span>\n  \n  <hr>\n  <h3>dateFormat</h3>\n  <span>default = ${currentDate | dateFormat}</span>\n  <br><span>'MMMM' = ${currentDate | dateFormat:'MMMM'}</span>\n\n  <hr>\n  <h3>string formatting</h3>\n  <u>pre:</u>\n  <br><pre>${message}</pre>\n  <br>\n  <u>innerHTML.bind:</u>\n  <br><span innerHTML.bind=\"message\"></span>\n  <br>\n  <br>\n  <u>normal:</u>\n  <br>${message}\n  <br>\n  <br>\n  <u>preserve-breaks.bind:</u>\n  <br><div preserve-breaks.bind=\"message\"></div>\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map

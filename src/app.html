@@ -27,5 +27,20 @@
   <h3>dateFormat</h3>
   <span>default = ${currentDate | dateFormat}</span>
   <br><span>'MMMM' = ${currentDate | dateFormat:'MMMM'}</span>
-  <br><span innerhtml.bind="('default') + currentDate | dateFormat">?</span>
+
+  <hr>
+  <h3>string formatting</h3>
+  <u>pre:</u>
+  <br><pre>${message}</pre>
+  <br>
+  <u>innerHTML.bind:</u>
+  <br><span innerHTML.bind="message"></span>
+  <br>
+  <br>
+  <u>normal:</u>
+  <br>${message}
+  <br>
+  <br>
+  <u>preserve-breaks.bind:</u>
+  <br><div preserve-breaks.bind="message"></div>
 </template>

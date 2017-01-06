@@ -19,5 +19,11 @@ export class App {
     // global variables
     this.myDataDelay = config.gDelay;
     this.myDataDelay2 = config.gDelay2;
+
+    this.message = `this is my text
+it has some line breaks
+and some <script>evil javascript</script>
+the line breaks were replaced with <br/> tags`;
+
   }
 }
