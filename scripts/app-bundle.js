@@ -228,13 +228,13 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
-define('format/format-cust',['exports', 'numeral', 'aurelia-framework'], function (exports, _numeral, _aureliaFramework) {
+define('format/format-cust',['exports', 'aurelia-framework', 'numeral'], function (exports, _aureliaFramework, _numeral) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.PreserveBreaksCustomAttribute = exports.ConvertTicksValueConverter = undefined;
+  exports.ConvertTicksValueConverter = exports.PreserveBreaksCustomAttribute = undefined;
 
   var _numeral2 = _interopRequireDefault(_numeral);
 
@@ -244,25 +244,13 @@ define('format/format-cust',['exports', 'numeral', 'aurelia-framework'], functio
     };
   }
 
-  var _dec, _class;
-
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
     }
   }
 
-  var ConvertTicksValueConverter = exports.ConvertTicksValueConverter = function () {
-    function ConvertTicksValueConverter() {
-      _classCallCheck(this, ConvertTicksValueConverter);
-    }
-
-    ConvertTicksValueConverter.prototype.toView = function toView(value) {
-      return (0, _numeral2.default)(value / 1000).format('0[.][0]');
-    };
-
-    return ConvertTicksValueConverter;
-  }();
+  var _dec, _class;
 
   function htmlEncode(html) {
     return document.createElement('a').appendChild(document.createTextNode(html)).parentNode.innerHTML;
@@ -283,6 +271,18 @@ define('format/format-cust',['exports', 'numeral', 'aurelia-framework'], functio
 
     return PreserveBreaksCustomAttribute;
   }()) || _class);
+
+  var ConvertTicksValueConverter = exports.ConvertTicksValueConverter = function () {
+    function ConvertTicksValueConverter() {
+      _classCallCheck(this, ConvertTicksValueConverter);
+    }
+
+    ConvertTicksValueConverter.prototype.toView = function toView(value) {
+      return (0, _numeral2.default)(value / 1000).format('0[.][0]');
+    };
+
+    return ConvertTicksValueConverter;
+  }();
 });
 define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"format/format-cust\"></require>\n  <require from=\"format/format-date\"></require>\n  <require from=\"format/format-currency\"></require>\n  <require from=\"format/format-number\"></require>  \n\n  <h1>${title}</h1>\n\n  <hr>\n  <h2>${throttle_title}:${myDataDelay}</h2>\n  <input id=\"throttleInp\" type=\"text\" value.bind=\"throttle_inp & throttle:myDataDelay\" />\n  <br>\n  <span>update after ${myDataDelay | convertTicks} seconds: ${throttle_inp}</span>\n\n  <hr>\n  <h2>${debounce_title}:${myDataDelay2}</h2>\n  <input id=\"debounceInp\" type=\"text\" value.bind=\"debounce_inp & debounce:myDataDelay2\" />\n  , oneTime: <input id=\"debounceInpOneTime\" type=\"text\" value.bind=\"debounce_inp & oneTime\" />\n  <br>\n  <span>update after ${myDataDelay2 | convertTicks} seconds: ${debounce_inp}</span>\n\n  <hr>\n  <h3>currencyFormat</h3>\n  <span>${myCurrencyValue | currencyFormat:'(0,0.00)'}</span>\n  \n  <hr>\n  <h3>dateFormat</h3>\n  <span>default = ${currentDate | dateFormat}</span>\n  <br><span>'MMMM' = ${currentDate | dateFormat:'MMMM'}</span>\n\n  <hr>\n  <h3>string formatting</h3>\n  <u>pre:</u>\n  <br><pre>${message}</pre>\n  <br>\n  <u>innerHTML.bind:</u>\n  <br><span innerHTML.bind=\"message\"></span>\n  <br>\n  <br>\n  <u>normal:</u>\n  <br>${message}\n  <br>\n  <br>\n  <u>preserve-breaks.bind:</u>\n  <br><div preserve-breaks.bind=\"message\"></div>\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map
