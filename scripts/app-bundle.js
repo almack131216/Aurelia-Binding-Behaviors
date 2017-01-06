@@ -18,21 +18,6 @@ define('app',['exports', 'aurelia-framework', './globals'], function (exports, _
     _classCallCheck(this, App);
 
     this.title = 'Aurelia - Binding Behavior';
-
-    this.currentDate = new Date();
-
-    this.myCurrencyValue = 999.99;
-
-    this.throttle_title = 'throttle';
-    this.throttle_inp = 'Test Throttle';
-
-    this.debounce_title = 'debounce';
-    this.debounce_inp = 'Test Debounce';
-
-    this.myDataDelay = config.gDelay;
-    this.myDataDelay2 = config.gDelay2;
-
-    this.message = 'this is my text\nit has some line breaks\nand some <script>evil javascript</script>\nthe line breaks were replaced with <br/> tags';
   }) || _class);
 });
 define('environment',["exports"], function (exports) {
@@ -300,5 +285,83 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"format/format-cust\"></require>\n  <require from=\"format/format-date\"></require>\n  <require from=\"format/format-currency\"></require>\n  <require from=\"format/format-number\"></require>\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\n\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-xs-12\">\n        <h1>${title}</h1>\n      </div>\n    </div>\n\n    <hr>\n\n    <div class=\"row\">\n      <div class=\"col-xs-4\">\n        <h2>${throttle_title}:${myDataDelay}</h2>\n        <input id=\"throttleInp\" type=\"text\" value.bind=\"throttle_inp & throttle:myDataDelay\" />\n        <br>\n        <span>update after ${myDataDelay | convertTicks} seconds: ${throttle_inp}</span>\n      </div>\n      <div class=\"col-xs-4\">\n        <h2>${debounce_title}:${myDataDelay2}</h2>\n        <input id=\"debounceInp\" type=\"text\" value.bind=\"debounce_inp & debounce:myDataDelay2\" />\n        <br>\n        <span>update after ${myDataDelay2 | convertTicks} seconds: ${debounce_inp}</span>\n      </div>\n      <div class=\"col-xs-4\">\n        <h2>Binds</h2>\n        <input id=\"debounceInpTwoTime\" type=\"text\" value.bind=\"debounce_inp\" /> (normal)\n        <br>\n        <input id=\"debounceInpOneTime\" type=\"text\" value.bind=\"debounce_inp & oneTime\" /> (& oneTime)\n      </div>\n    </div>\n\n\n    <hr>\n    <div class=\"row\">\n      <div class=\"col-xs-4\">\n        <h3>currencyFormat</h3>\n        <table class=\"table\">\n          <tr>\n            <td><label>raw</label></td><td>${myCurrencyValue}</td>\n          </tr>\n          <tr>\n            <td><label>default</label></td><td>${myCurrencyValue | currencyFormat}</td>\n          </tr>\n          <tr>\n            <td><label>'0'</label></td><td>${myCurrencyValue | currencyFormat:'0'}</td>\n          </tr>\n          <tr>\n            <td><label>'0,3'</label></td><td>${myCurrencyValue | currencyFormat:'0,3'}</td>\n          </tr>\n        </table>\n\n      </div>\n      <div class=\"col-xs-4\">\n        <h3>numberFormat</h3>\n        <table class=\"table\">\n          <tr>\n            <td><label>raw</label></td><td>${myCurrencyValue}</td>\n          </tr>\n          <tr>\n            <td><label>default</label></td><td>${myCurrencyValue | numberFormat}</td>\n          </tr>\n          <tr>\n            <td><label>'0'</label></td><td>${myCurrencyValue | numberFormat:'0'}</td>\n          </tr>\n          <tr>\n            <td><label>roundDown</label></td><td>${myCurrencyValue | roundDown}</td>\n          </tr>\n          <tr>\n            <td><label>roundDown:2</label></td><td>${myCurrencyValue | roundDown:2}</td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"col-xs-4\">\n        <h3>dateFormat</h3>\n        <table class=\"table\">\n          <tr>\n            <td><label>raw</label></td>\n            <td>${currentDate}</td>\n          </tr>\n          <tr>\n            <td><label>default</label></td>\n            <td>${currentDate | dateFormat}</td>\n          </tr>\n          <tr>\n            <td><label>'MMMM'</label></td>\n            <td>${currentDate | dateFormat:'MMMM'}</td>\n          </tr>\n          <tr>\n            <td><label>'Mo'</label></td>\n            <td>${currentDate | dateFormat:'Mo'}</td>\n          </tr>\n          <tr>\n            <td><label>'YYYY'</label></td>\n            <td>${currentDate | dateFormat:'YYYY'}</td>\n          </tr>\n        </table>\n      </div>\n    </div>\n\n    <hr>\n    <div class=\"row\">\n      <div class=\"col-xs-12\">\n        <h3>string formatting</h3>\n        <u>raw:</u>\n        <br>${message}\n        <br>\n        <br>\n        <u>pre:</u>\n        <br><pre>${message}</pre>\n        <br>\n        <br>\n        <u>innerHTML.bind:</u>\n        <br><span innerHTML.bind=\"message\"></span>\n        <br>\n        <br>\n        <u>preserve-breaks.bind:</u>\n        <br><span preserve-breaks.bind=\"message\"></span>\n      </div>\n    </div>\n\n  </div>\n</template>"; });
+define('views/formatters',['exports', 'aurelia-framework', '../globals'], function (exports, _aureliaFramework, _globals) {
+    'use strict';
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.Formatters = undefined;
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var _dec, _class;
+
+    var Formatters = exports.Formatters = (_dec = (0, _aureliaFramework.inject)(_globals.Configuration), _dec(_class = function Formatters(config) {
+        _classCallCheck(this, Formatters);
+
+        this.currentDate = new Date();
+
+        this.myCurrencyValue = 999.99;
+    }) || _class);
+});
+define('views/string-formatting',['exports', 'aurelia-framework', '../globals'], function (exports, _aureliaFramework, _globals) {
+    'use strict';
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.StringFormatting = undefined;
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var _dec, _class;
+
+    var StringFormatting = exports.StringFormatting = (_dec = (0, _aureliaFramework.inject)(_globals.Configuration), _dec(_class = function StringFormatting(config) {
+        _classCallCheck(this, StringFormatting);
+
+        this.message = 'this is my text\nit has some line breaks\nand some <script>evil javascript</script>\nthe line breaks were replaced with <br/> tags';
+    }) || _class);
+});
+define('views/throttle',['exports', 'aurelia-framework', '../globals'], function (exports, _aureliaFramework, _globals) {
+    'use strict';
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.Throttle = undefined;
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var _dec, _class;
+
+    var Throttle = exports.Throttle = (_dec = (0, _aureliaFramework.inject)(_globals.Configuration), _dec(_class = function Throttle(config) {
+        _classCallCheck(this, Throttle);
+
+        this.throttle_title = 'throttle';
+        this.throttle_inp = 'Test Throttle';
+
+        this.debounce_title = 'debounce';
+        this.debounce_inp = 'Test Debounce';
+
+        this.myDataDelay = config.gDelay;
+        this.myDataDelay2 = config.gDelay2;
+    }) || _class);
+});
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\n  <require from=\"./views/throttle\"></require>\n  <require from=\"./views/formatters\"></require>\n  <require from=\"./views/string-formatting\"></require>\n\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-xs-12\">\n        <h1>${title}</h1>\n        <h4>Included in this demo:</h4>\n        <ul>\n            <li>Checkbox ref with corresponding template binding</li>\n            <li>template components</li>\n            <li>binding behaviors (standard and custom)</li>\n            <li>bootstrap</li>\n            <li>global variables using Configuration</li>\n          </ul>\n      </div>\n    </div>\n\n    <hr>\n    <input type=\"checkbox\" ref=\"hideBindings\"> hide bindings template file\n    <throttle if.bind=\"!hideBindings.checked\"></throttle>\n\n    <hr>\n    <input type=\"checkbox\" ref=\"hideFormatters\"> hide formatters template file\n    <formatters if.bind=\"!hideFormatters.checked\"></formatters>\n\n    <hr>\n    <input type=\"checkbox\" ref=\"hideStringFormatting\"> hide string-formatting template file\n    <string-formatting if.bind=\"!hideStringFormatting.checked\"></string-formatting>\n\n  </div>\n</template>"; });
+define('text!views/formatters.html', ['module'], function(module) { module.exports = "<template>\r\n    <require from=\"../format/format-date\"></require>\r\n    <require from=\"../format/format-currency\"></require>\r\n    <require from=\"../format/format-number\"></require>\r\n\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-4\">\r\n            <h3>currencyFormat</h3>\r\n            <table class=\"table\">\r\n                <tr>\r\n                    <td><label>raw</label></td>\r\n                    <td>${myCurrencyValue}</td>\r\n                </tr>\r\n                <tr>\r\n                    <td><label>default</label></td>\r\n                    <td>${myCurrencyValue | currencyFormat}</td>\r\n                </tr>\r\n                <tr>\r\n                    <td><label>'0'</label></td>\r\n                    <td>${myCurrencyValue | currencyFormat:'0'}</td>\r\n                </tr>\r\n                <tr>\r\n                    <td><label>'0,3'</label></td>\r\n                    <td>${myCurrencyValue | currencyFormat:'0,3'}</td>\r\n                </tr>\r\n            </table>\r\n\r\n        </div>\r\n        <div class=\"col-xs-4\">\r\n            <h3>numberFormat</h3>\r\n            <table class=\"table\">\r\n                <tr>\r\n                    <td><label>raw</label></td>\r\n                    <td>${myCurrencyValue}</td>\r\n                </tr>\r\n                <tr>\r\n                    <td><label>default</label></td>\r\n                    <td>${myCurrencyValue | numberFormat}</td>\r\n                </tr>\r\n                <tr>\r\n                    <td><label>'0'</label></td>\r\n                    <td>${myCurrencyValue | numberFormat:'0'}</td>\r\n                </tr>\r\n                <tr>\r\n                    <td><label>roundDown</label></td>\r\n                    <td>${myCurrencyValue | roundDown}</td>\r\n                </tr>\r\n                <tr>\r\n                    <td><label>roundDown:2</label></td>\r\n                    <td>${myCurrencyValue | roundDown:2}</td>\r\n                </tr>\r\n            </table>\r\n        </div>\r\n        <div class=\"col-xs-4\">\r\n            <h3>dateFormat</h3>\r\n            <table class=\"table\">\r\n                <tr>\r\n                    <td><label>raw</label></td>\r\n                    <td>${currentDate}</td>\r\n                </tr>\r\n                <tr>\r\n                    <td><label>default</label></td>\r\n                    <td>${currentDate | dateFormat}</td>\r\n                </tr>\r\n                <tr>\r\n                    <td><label>'MMMM'</label></td>\r\n                    <td>${currentDate | dateFormat:'MMMM'}</td>\r\n                </tr>\r\n                <tr>\r\n                    <td><label>'Mo'</label></td>\r\n                    <td>${currentDate | dateFormat:'Mo'}</td>\r\n                </tr>\r\n                <tr>\r\n                    <td><label>'YYYY'</label></td>\r\n                    <td>${currentDate | dateFormat:'YYYY'}</td>\r\n                </tr>\r\n            </table>\r\n        </div>\r\n    </div>\r\n</template>"; });
+define('text!views/string-formatting.html', ['module'], function(module) { module.exports = "<template>\r\n    <require from=\"../format/format-cust\"></require>\r\n    <div class=\"row\">\r\n      <div class=\"col-xs-12\">\r\n        <h3>string formatting</h3>\r\n        <u>raw:</u>\r\n        <br>${message}\r\n        <br>\r\n        <br>\r\n        <u>pre:</u>\r\n        <br><pre>${message}</pre>\r\n        <br>\r\n        <br>\r\n        <u>innerHTML.bind:</u>\r\n        <br><span innerHTML.bind=\"message\"></span>\r\n        <br>\r\n        <br>\r\n        <u>preserve-breaks.bind:</u>\r\n        <br><span preserve-breaks.bind=\"message\"></span>\r\n      </div>\r\n    </div>\r\n</template>"; });
+define('text!views/throttle.html', ['module'], function(module) { module.exports = "<template>\r\n    <require from=\"../format/format-cust\"></require>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-xs-4\">\r\n        <h2>${throttle_title}:${myDataDelay}</h2>\r\n        <input id=\"throttleInp\" type=\"text\" value.bind=\"throttle_inp & throttle:myDataDelay\" />\r\n        <br>\r\n        <span>update after ${myDataDelay | convertTicks} seconds: ${throttle_inp}</span>\r\n      </div>\r\n      <div class=\"col-xs-4\">\r\n        <h2>${debounce_title}:${myDataDelay2}</h2>\r\n        <input id=\"debounceInp\" type=\"text\" value.bind=\"debounce_inp & debounce:myDataDelay2\" />\r\n        <br>\r\n        <span>update after ${myDataDelay2 | convertTicks} seconds: ${debounce_inp}</span>\r\n      </div>\r\n      <div class=\"col-xs-4\">\r\n        <h2>Binds</h2>\r\n        <input id=\"debounceInpTwoTime\" type=\"text\" value.bind=\"debounce_inp\" /> (normal)\r\n        <br>\r\n        <input id=\"debounceInpOneTime\" type=\"text\" value.bind=\"debounce_inp & oneTime\" /> (& oneTime)\r\n      </div>\r\n    </div>\r\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map

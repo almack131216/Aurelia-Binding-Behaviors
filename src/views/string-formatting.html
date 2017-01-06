@@ -1,0 +1,22 @@
+<template>
+    <require from="../format/format-cust"></require>
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>string formatting</h3>
+        <u>raw:</u>
+        <br>${message}
+        <br>
+        <br>
+        <u>pre:</u>
+        <br><pre>${message}</pre>
+        <br>
+        <br>
+        <u>innerHTML.bind:</u>
+        <br><span innerHTML.bind="message"></span>
+        <br>
+        <br>
+        <u>preserve-breaks.bind:</u>
+        <br><span preserve-breaks.bind="message"></span>
+      </div>
+    </div>
+</template>

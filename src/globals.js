@@ -1,3 +1,7 @@
+/* globals.js */
+/*
+put all global variables here, as camel-case prefixed with a small 'g'
+*/
 
 export class Configuration {  
   constructor(){

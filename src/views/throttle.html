@@ -1,0 +1,24 @@
+<template>
+    <require from="../format/format-cust"></require>
+
+    <div class="row">
+      <div class="col-xs-4">
+        <h2>${throttle_title}:${myDataDelay}</h2>
+        <input id="throttleInp" type="text" value.bind="throttle_inp & throttle:myDataDelay" />
+        <br>
+        <span>update after ${myDataDelay | convertTicks} seconds: ${throttle_inp}</span>
+      </div>
+      <div class="col-xs-4">
+        <h2>${debounce_title}:${myDataDelay2}</h2>
+        <input id="debounceInp" type="text" value.bind="debounce_inp & debounce:myDataDelay2" />
+        <br>
+        <span>update after ${myDataDelay2 | convertTicks} seconds: ${debounce_inp}</span>
+      </div>
+      <div class="col-xs-4">
+        <h2>Binds</h2>
+        <input id="debounceInpTwoTime" type="text" value.bind="debounce_inp" /> (normal)
+        <br>
+        <input id="debounceInpOneTime" type="text" value.bind="debounce_inp & oneTime" /> (& oneTime)
+      </div>
+    </div>
+</template>

@@ -1,0 +1,80 @@
+<template>
+    <require from="../format/format-date"></require>
+    <require from="../format/format-currency"></require>
+    <require from="../format/format-number"></require>
+
+    <div class="row">
+        <div class="col-xs-4">
+            <h3>currencyFormat</h3>
+            <table class="table">
+                <tr>
+                    <td><label>raw</label></td>
+                    <td>${myCurrencyValue}</td>
+                </tr>
+                <tr>
+                    <td><label>default</label></td>
+                    <td>${myCurrencyValue | currencyFormat}</td>
+                </tr>
+                <tr>
+                    <td><label>'0'</label></td>
+                    <td>${myCurrencyValue | currencyFormat:'0'}</td>
+                </tr>
+                <tr>
+                    <td><label>'0,3'</label></td>
+                    <td>${myCurrencyValue | currencyFormat:'0,3'}</td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="col-xs-4">
+            <h3>numberFormat</h3>
+            <table class="table">
+                <tr>
+                    <td><label>raw</label></td>
+                    <td>${myCurrencyValue}</td>
+                </tr>
+                <tr>
+                    <td><label>default</label></td>
+                    <td>${myCurrencyValue | numberFormat}</td>
+                </tr>
+                <tr>
+                    <td><label>'0'</label></td>
+                    <td>${myCurrencyValue | numberFormat:'0'}</td>
+                </tr>
+                <tr>
+                    <td><label>roundDown</label></td>
+                    <td>${myCurrencyValue | roundDown}</td>
+                </tr>
+                <tr>
+                    <td><label>roundDown:2</label></td>
+                    <td>${myCurrencyValue | roundDown:2}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-xs-4">
+            <h3>dateFormat</h3>
+            <table class="table">
+                <tr>
+                    <td><label>raw</label></td>
+                    <td>${currentDate}</td>
+                </tr>
+                <tr>
+                    <td><label>default</label></td>
+                    <td>${currentDate | dateFormat}</td>
+                </tr>
+                <tr>
+                    <td><label>'MMMM'</label></td>
+                    <td>${currentDate | dateFormat:'MMMM'}</td>
+                </tr>
+                <tr>
+                    <td><label>'Mo'</label></td>
+                    <td>${currentDate | dateFormat:'Mo'}</td>
+                </tr>
+                <tr>
+                    <td><label>'YYYY'</label></td>
+                    <td>${currentDate | dateFormat:'YYYY'}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</template>
