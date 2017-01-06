@@ -1,5 +1,6 @@
 import {inject} from 'aurelia-framework';
-import {Configuration} from './globals'; 
+import {Configuration} from './globals';
+//import {bootstrap} from 'bootstrap';
 
 @inject(Configuration)
 export class App {
